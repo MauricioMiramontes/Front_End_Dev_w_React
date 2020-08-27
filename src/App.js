@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Menu from './components/MenuComponent'
 import { Navbar, NavbarBrand } from 'reactstrap';
