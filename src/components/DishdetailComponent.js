@@ -10,32 +10,31 @@ class DishDetail extends Component {
         super(props);
 
         this.state = {
-            DishToDisplay: this.props.selectedDish,
-            CommentsToDisplay: this.props.selectedDish.comments
+            
         }
     }
 
     //Assigment 1: Task 2
-    renderDish(DishToDisplay) {
+    renderDish() {
         return (
 
             <Card>
-                <CardImg top src={DishToDisplay.image} alt={DishToDisplay.name} />
+                <CardImg top src={this.props.selectedDish.image} alt={this.props.selectedDish.name} />
                 <CardBody>
-                    <CardTitle>{DishToDisplay.name}</CardTitle>
-                    <CardText>{DishToDisplay.description}</CardText>
+                    <CardTitle>{this.props.selectedDish.name}</CardTitle>
+                    <CardText>{this.props.selectedDish.description}</CardText>
                 </CardBody>
             </Card>
 
         );
     }
     //Assigment 1: Task 3
-    renderComment(CommentsToDisplay) {
-        const DishComments = CommentsToDisplay.map((comment) => {
+    renderComment() {
+        const DishComments = this.props.selectedDish.comments.map((comment) => {
             return (
-                <ul class="list-unstyled">
+                <ul class="list-unstyled" key={this.props.selectedDish.id}>
                     <li>{comment.comment}</li>
-                    <li><h6>{comment.author},{comment.date}</h6></li>
+                    <li><h6>{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</h6></li>
                 </ul>
             );
         });
@@ -47,17 +46,24 @@ class DishDetail extends Component {
 
 
     render() {
-        return (
-            <div className="row">
-                <div className="col-12 col-md-5 m-1">
-                    {this.renderDish(this.state.DishToDisplay)}
+        if(this.props.selectedDish != null)
+            return (
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12 col-md-5 m-1">
+                            {this.renderDish()}
+                        </div>
+                        <div className="col-12 col-md-5">
+                            <h4>Comments</h4>
+                            {this.renderComment()}
+                        </div>
+                    </div>
                 </div>
-                <div className="col-12 col-md-5">
-                    <h4>Comments</h4>
-                    {this.renderComment(this.state.CommentsToDisplay)}
-                </div>
-            </div>
-        );
+            );
+        else
+            return (
+                <div></div>
+            )
     }
 }
 
