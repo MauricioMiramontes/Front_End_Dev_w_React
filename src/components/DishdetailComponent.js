@@ -7,7 +7,7 @@ import {
 
 
 //Assigment 1: Task 2
-function RenderDish({selectedDish}) {
+function RenderDish({ selectedDish }) {
     return (
 
         <Card>
@@ -21,13 +21,13 @@ function RenderDish({selectedDish}) {
     );
 }
 //Assigment 1: Task 3
-function RenderComments({comments},{key}){
+function RenderComments({ comments }, { key }) {
     const DishComments = comments.map((comment) => {
         return (
             <div>
-                <ul class="list-unstyled" id = {key}>
+                <ul class="list-unstyled" key={key}>
                     <li>{comment.comment}</li>
-                    <li><h6>{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</h6></li>
+                    <li><h6>{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</h6></li>
                 </ul>
             </div>
         );
@@ -39,17 +39,17 @@ function RenderComments({comments},{key}){
 }
 
 
-const  DishDetail = (props) => {
-    if(props.selectedDish != null)
+const DishDetail = (props) => {
+    if (props.selectedDish != null)
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-12 col-md-5 m-1">
-                        <RenderDish dish = {props.selectedDish}></RenderDish>
+                        <RenderDish selectedDish={props.selectedDish}></RenderDish>
                     </div>
                     <div className="col-12 col-md-5">
                         <h4>Comments</h4>
-                        <RenderComments comments = {props.selectedDish.comments} key = {props.selectedDish.id}></RenderComments>
+                        <RenderComments comments={props.selectedDish.comments} key={props.selectedDish.id}></RenderComments>
                     </div>
                 </div>
             </div>
