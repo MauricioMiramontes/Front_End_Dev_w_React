@@ -31,3 +31,8 @@ address{
 .navbar-dark {
     background-color: #512DA8;
 }
+
+.dark{
+    color:floralwhite;
+    background-color: #9575CD;
+}

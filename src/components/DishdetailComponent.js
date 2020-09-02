@@ -1,8 +1,9 @@
 import React from 'react';
 import {
     Card, CardImg, CardText, CardBody,
-    CardTitle
+    CardTitle, Breadcrumb, BreadcrumbItem
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 
@@ -44,12 +45,22 @@ const DishDetail = (props) => {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-                        <RenderDish selectedDish={props.selectedDish}></RenderDish>
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>{props.selectedDish.name}</BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{props.selectedDish.name}</h3>
+                        <hr />
                     </div>
-                    <div className="col-12 col-md-5">
-                        <h4>Comments</h4>
-                        <RenderComments comments={props.selectedDish.comments} key={props.selectedDish.id}></RenderComments>
+                </div>
+                <div className="row">
+                    <div className="col-12 col-md-5 m-1">
+                        <RenderDish selectedDish={props.selectedDish} />
+                    </div>
+                    <div className="col-12 col-md-5 m-1">
+                        <RenderComments comments={props.comments} />
                     </div>
                 </div>
             </div>
