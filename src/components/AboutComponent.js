@@ -19,8 +19,6 @@ function RenderLeader({ leader }) {
         </div>
 
     );
-
-
 }
 
 function About(props) {
