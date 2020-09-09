@@ -8,6 +8,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -15,15 +16,19 @@ const minLength = (len) => (val) => val && (val.length >= len);
 //Assigment 1: Task 2
 function RenderDish({ selectedDish }) {
     return (
-
-        <Card>
-            <CardImg top src={baseUrl + selectedDish.image} alt={selectedDish.name} />
-            <CardBody>
-                <CardTitle>{selectedDish.name}</CardTitle>
-                <CardText>{selectedDish.description}</CardText>
-            </CardBody>
-        </Card>
-
+        <FadeTransform
+            in
+            transformProps={{
+                exitTransform: 'scale(0.5) translateY(-50%)'
+            }}>
+            <Card>
+                <CardImg top src={baseUrl + selectedDish.image} alt={selectedDish.name} />
+                <CardBody>
+                    <CardTitle>{selectedDish.name}</CardTitle>
+                    <CardText>{selectedDish.description}</CardText>
+                </CardBody>
+            </Card>
+        </FadeTransform>
     );
 }
 //Assigment 1: Task 3
@@ -32,9 +37,14 @@ function RenderComments({ comments, postComment, dishId, key }) {
         return (
             <div>
                 <ul class="list-unstyled" key={key}>
-                    <li>{comment.comment}</li>
-                    <li><h6>{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</h6></li>
+                    <Stagger in>
+                        <Fade in>
+                            <li>{comment.comment}</li>
+                            <li><h6>{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</h6></li>
+                        </Fade>
+                    </Stagger>
                 </ul>
+
             </div>
         );
     });
