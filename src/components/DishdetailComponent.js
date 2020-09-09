@@ -27,7 +27,7 @@ function RenderDish({ selectedDish }) {
     );
 }
 //Assigment 1: Task 3
-function RenderComments({ comments, addComment, dishId, key }) {
+function RenderComments({ comments, postComment, dishId, key }) {
     const DishComments = comments.map((comment) => {
         return (
             <div>
@@ -42,7 +42,7 @@ function RenderComments({ comments, addComment, dishId, key }) {
     return (
         <div>
             {DishComments}
-            <CommentForm dishId={dishId} addComment={addComment} />
+            <CommentForm dishId={dishId} postComment={postComment} />
         </div>
     );
 }
@@ -66,7 +66,7 @@ class CommentForm extends Component {
     }
 
     handleSubmit(values) {
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
         // event.preventDefault();
     }
 
@@ -177,7 +177,7 @@ const DishDetail = (props) => {
                     </div>
                     <div className="col-12 col-md-5 m-1">
                         <RenderComments comments={props.comments}
-                            addComment={props.addComment}
+                            postComment={props.postComment}
                             dishId={props.selectedDish.id}
                         />
 
