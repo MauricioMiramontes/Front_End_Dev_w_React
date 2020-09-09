@@ -25,7 +25,7 @@ function RenderDish({ selectedDish }) {
     );
 }
 //Assigment 1: Task 3
-function RenderComments({ comments }, { key }) {
+function RenderComments({ comments, addComment, dishId, key }) {
     const DishComments = comments.map((comment) => {
         return (
             <div>
@@ -40,7 +40,7 @@ function RenderComments({ comments }, { key }) {
     return (
         <div>
             {DishComments}
-            <CommentForm></CommentForm> 
+            <CommentForm dishId={dishId} addComment={addComment} />
         </div>
     );
 }
@@ -64,8 +64,7 @@ class CommentForm extends Component {
     }
 
     handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
         // event.preventDefault();
     }
 
@@ -114,7 +113,6 @@ class CommentForm extends Component {
                                     />
                                 </Col>
                             </Row>
-
                             <Row className="form-group">
                                 <Label htmlFor="comment" md={12}>Your Feedback</Label>
                                 <Col md={12}>
@@ -131,14 +129,11 @@ class CommentForm extends Component {
                                 </Col>
                             </Row>
                         </LocalForm>
-
                     </ModalBody>
                 </Modal>
             </div>
         );
     }
-
-
 }
 
 const DishDetail = (props) => {
@@ -161,7 +156,11 @@ const DishDetail = (props) => {
                         <RenderDish selectedDish={props.selectedDish} />
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        <RenderComments comments={props.comments} /> 
+                        <RenderComments comments={props.comments}
+                            addComment={props.addComment}
+                            dishId={props.selectedDish.id}
+                        />
+
                     </div>
                 </div>
             </div>
