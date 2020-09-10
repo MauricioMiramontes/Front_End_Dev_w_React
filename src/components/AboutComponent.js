@@ -3,22 +3,25 @@ import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'r
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
-
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 function RenderLeader({ leader }) {
     //Assigment 2: Task 2
     return (
         <div className="mt-5">
-            <Media tag='li'>
-                <Media left middle>
-                    <Media object src={baseUrl + leader.image} alt={leader.name} />
+           <Fade in>
+                <Media tag='li'>
+                    <Media left middle>
+                        <Media object src={baseUrl + leader.image} alt={leader.name} />
+                    </Media>
+                    <Media body className="ml-5">
+                        <Media heading>{leader.name}</Media>
+                        <p>{leader.designation}</p>
+                        <p>{leader.description}</p>
+                    </Media>
                 </Media>
-                <Media body className="ml-5">
-                    <Media heading>{leader.name}</Media>
-                    <p>{leader.designation}</p>
-                    <p>{leader.description}</p>
-                </Media>
-            </Media>
+            </Fade>
+            
         </div>
     );
 }
@@ -45,7 +48,9 @@ function About(props) {
             //Assigment 2: Task 3
             return (
                 <Media list>
-                    <RenderLeader leader={leader}/>
+                    <Stagger in>
+                        <RenderLeader leader={leader}/>
+                    </Stagger>
                 </Media>
             );
     });
