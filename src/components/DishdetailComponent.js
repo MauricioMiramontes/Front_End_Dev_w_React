@@ -13,6 +13,7 @@ import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
+
 //Assigment 1: Task 2
 function RenderDish({ selectedDish }) {
     return (

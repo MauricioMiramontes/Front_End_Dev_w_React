@@ -1,6 +1,9 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
+import { Loading } from './LoadingComponent';
+
 
 function RenderLeader({ leader }) {
     //Assigment 2: Task 2
@@ -8,7 +11,7 @@ function RenderLeader({ leader }) {
         <div className="mt-5">
             <Media tag='li'>
                 <Media left middle>
-                    <Media object src={leader.image} alt={leader.name} />
+                    <Media object src={baseUrl + leader.image} alt={leader.name} />
                 </Media>
                 <Media body className="ml-5">
                     <Media heading>{leader.name}</Media>
@@ -17,17 +20,34 @@ function RenderLeader({ leader }) {
                 </Media>
             </Media>
         </div>
-
     );
+}
+
+function CheckErrors({errMess, isLoading }) {
+    if (isLoading) {
+        return (
+            <Loading />
+        );
+    }
+    else if (errMess) {
+        return (
+            <h4>{errMess}</h4>
+        );
+    }
+    else
+        return(<div></div>);
+
 }
 
 function About(props) {
 
     const leaders = props.leaders.map((leader) => {
-        //Assigment 2: Task 3
-        return (
-            <RenderLeader leader={leader} />
-        );
+            //Assigment 2: Task 3
+            return (
+                <Media list>
+                    <RenderLeader leader={leader}/>
+                </Media>
+            );
     });
 
     return (
@@ -85,9 +105,8 @@ function About(props) {
                     <h2>Corporate Leadership</h2>
                 </div>
                 <div className="col-12">
-                    <Media list>
-                        {leaders}
-                    </Media>
+                    <CheckErrors errMess = {props.leadersErrMess} isLoading = {props.leadersLoading}></CheckErrors>
+                    {leaders}
                 </div>
             </div>
         </div>
